@@ -1,0 +1,111 @@
+{% load static %}
+{% load order_tags %}
+
+
+
+
+<nav class="">
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid container">
+
+            <a class="navbar-brand text-light ms-5" href="{% url 'store:product_list' %}">
+                Subscription
+            </a>
+            <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon "></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page"
+
+                           href="{% url 'store:product_list_by_category' 'Journal' %}">
+                            Journals
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light"
+                           href="{% url 'store:product_list_by_category' 'Newspaper' %}">
+                            Newspapers
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light"
+                           href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="#">Contact</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    {% get_total_price request.user as total_price %}
+                    {% if request.user.is_authenticated %}
+
+                    <li class="me-2 nav-item">
+                        <div class="dropdown">
+                            <a class="btn dropdown-toggle" href="#" role="button"
+                               data-bs-toggle="dropdown" aria-expanded="false">
+                                {% if request.user.profile.image %}
+                                <img src="{{ user.profile.image.url }}" class="rounded-circle shadow my-1"
+                                     style="width: 2.3rem; height:2.3rem;" alt="">
+                                {% else %}
+                                <img src="{% static 'assets/unknown_user.jpg' %}" class="rounded-circle shadow my-1"
+                                     style="width: 2.3rem; height:2.3rem;" alt="">
+                                {% endif %}
+                            </a>
+
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item text-center" href="#">
+                                        Password change
+                                    </a>
+                                </li>
+                                <li><a class="dropdown-item text-center" href="#">Something else here</a></li>
+                                <li class="text-center">
+                                    <form class="dropdown-item" action="{% url 'users:logout' %}">
+                                        <input class="dropdown-item text-left" type="submit" value="Logout">
+                                    </form>
+                                </li>
+
+                            </ul>
+                        </div>
+
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'users:login' %}" class="btn btn-outline-light ms-2">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'users:register' %}" class="btn btn-outline-light ms-2">Signup</a>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item ms-3 fs-6 mt-3 text-light"><a class="link-body-emphasis"
+                                                                      href="{% url 'order:cart_list' %}">
+                        <i class="fa-solid fa-cart-shopping text-light fs-4"></i>
+                    </a> ($ {% if total_price %}
+                        {{ total_price }}
+                        {% else %}
+                        0.00
+                        {% endif %}
+                        )
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid container">
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 "></ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-warning" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</nav>
+
+

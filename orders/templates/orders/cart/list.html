@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Cart
+{% endblock title %}
+
+
+{% block content %}
+<div class="container">
+    <table class="table align-item-center">
+        <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Product</th>
+            <th scope="col">Duration</th>
+            <th scope="col">Remove</th>
+            <th scope="col">Price</th>
+            <th scope="col">Total price</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cart in carts %}
+        <tr class="mt-5">
+            <td>
+                <img src="{{ cart.product.image.url }}" class="" style="width: 5rem; height: 5rem;" alt="">
+            </td>
+            <td class="mt-5">
+                {{ cart.product.title }}
+            </td>
+            <td class="mt-5">
+                <div class="d-flex justify-content-left">
+                    <div >
+                        {{ cart.duration }}-month
+                    </div>
+                    <div class="ms-5">
+                        <form action="{% url 'order:cart_add' cart.product.id %}" method="post">
+                    {% for field in form %}
+                        {{ field }}
+                    {% endfor %}
+                    {% csrf_token %}
+                    <button class="btn btn-info" type="submit">Update</button>
+                </form>
+                    </div>
+                </div>
+
+            </td>
+            <td class="mt-5">
+                <form action="{% url 'order:cart_remove' cart.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" type="submit">Remove</button>
+                </form>
+            </td>
+            <td class="mt-5">${{ cart.product.price }}</td>
+            <td class="mt-5">${{ cart.price }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div class="d-flex">
+        <a href="{% url 'order:order_create' %}" class="btn btn-outline-primary">
+            Checkout
+        </a>
+        <a href="{% url 'store:product_list' %}" class="btn btn-outline-dark ms-4">
+            Go back
+        </a>
+
+    </div>
+</div>
+{% endblock content %}
+

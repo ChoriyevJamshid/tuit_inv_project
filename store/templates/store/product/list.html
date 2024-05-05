@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Newspaprs
+{% endblock title %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-3">
+        <div class="container">
+            <div class="list-group">
+                <div class="list-group-item list-group-item-action text-center fw-bold">
+                    Categories
+                </div>
+                {% for cat in categories %}
+                <a href="{{ cat.get_absolute_url }}"
+                   class="list-group-item list-group-item-action {% if category and category.slug == cat.slug %}active{% endif %}">
+                    {{ cat.title }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-8 ms-5">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                {% for product in products %}
+                <div class="card col-3 ms-5 mb-5 shadow">
+                    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.title }}</h5>
+                        <p class="card-text text-muted">
+                            Subscription 1-month
+                            <span class="text-dark fs-5">$</span><span
+                                class="text-warning fw-bold">{{ product.price }}</span>
+                        </p>
+                        <hr class="my-2 text-secondary">
+                        <p class="card-text">{{ product.description|truncatewords:10 }}</p>
+                        <a href="{{ product.get_absolute_url }}" class="btn btn-outline-warning w-100">
+                            Subscribe
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock content %}
+
+

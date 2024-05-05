@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load order_tags %}
+
+{% block title %}
+Checkout
+{% endblock title %}
+
+
+{% block content %}
+<div>
+
+    <div class="row">
+        <div class="col-6">
+
+            <div class="container col-8">
+                <h1 class="my-2">Checkout</h1>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary my-4">
+                        Place order
+                    </button>
+                </form>
+            </div>
+
+        </div>
+        <div class="col-6">
+
+            <ul class="container col-8">
+                <h1 class="mb-5">Your order</h1>
+                {% for cart in carts %}
+                <li class="shadow">
+                    <div class="card border border-0 my-2">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-between mt-2">
+                                <div class="fw-bold">
+                                    {{ cart.duration }}x month {{ cart.product.title }}
+                                </div>
+                                <div>
+                                    <span class="text-dark fs-5">$</span><span
+                                        class="text-warning fw-bold">{{ cart.price }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+
+                {% endfor %}
+                <li class="card border-0">
+                    <div class="mt-4 ms-3 fw-bold d-flex justify-content-between">
+                        {% get_total_price request.user as total_price %}
+                        <h1></h1>
+                        <h1 class="lead text-right me-4">Total: <span class="text-dark fs-5">$</span><span
+                                        class="text-warning fw-bold">{{ total_price }}</span></h1>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+
+
+
+
