@@ -15,10 +15,6 @@ def product_list(request: HttpRequest, category_slug=None):
     categories = Category.objects.all()
     products = Product.objects.filter(is_active=True)
 
-    print('\n\n')
-
-    print('\n\n')
-
     if category_slug:
         if category_slug.title() in Product.ProductType.values:
             if category_slug.lower() == 'newspaper':

@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Kirish
+Login
 {% endblock title %}
 
 
 {% block content %}
 <div class="container col-xxl-6 shadow-lg rounded-4 mt-4">
     <h1 class="font-consolas mt-2 mx-4 text-center">
-        Kirish
+        Login
     </h1>
     <div class="col mt-4 mx-4">
         <form action="" method="post">
@@ -18,7 +18,7 @@ Kirish
                 <p>{{ field }}</p>
             {% endfor %}
             <button type="submit" class="btn btn-outline-success mb-4">Log-in</button>
-            <a href="{% url 'users:password_reset' %}" class="btn btn-outline-primary mb-4">Parolni tiklash</a>
+            <a href="{% url 'users:password_reset' %}" class="btn btn-outline-primary mb-4">Password reset</a>
         </form>
     </div>
 </div>

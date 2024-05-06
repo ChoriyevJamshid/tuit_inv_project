@@ -31,6 +31,7 @@ def cart_add(request, product_id):
         if cart.exists():
             cart = cart.first()
             cart.duration = cd['duration']
+            cart.price = cd['duration'] * cart.product.price
         else:
             cart = Cart(
                 user=request.user,
