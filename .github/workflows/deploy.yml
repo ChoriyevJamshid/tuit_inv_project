@@ -19,5 +19,6 @@ jobs:
           script: >
             cd ${{ secrets.PROJECT_PATH }} 
             && git pull 
+            && systemctl start gunicorn-tuit_inv
             
 
